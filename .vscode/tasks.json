@@ -1,0 +1,56 @@
+
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CMake: Configure",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-G", "MinGW Makefiles",
+                "-B", "build",
+                "-S", ".",
+                "-DOpenCV_DIR=C:/msys64/mingw64/lib/cmake/opencv5"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "CMake: Build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "build", "--parallel"
+            ],
+            "dependsOn": "CMake: Configure",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": ["$gcc"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Run: Gesture Recognition",
+            "type": "shell",
+            "command": ".\\build\\FPGA-Accelerated-Gesture-Recognition.exe",
+            "dependsOn": "CMake: Build",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "PATH": "C:\\msys64\\mingw64\\bin;${env:PATH}"
+                }
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            }
+        }
+    ]
+}
